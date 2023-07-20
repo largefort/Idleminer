@@ -33,9 +33,11 @@ h1 {
     align-items: center;
 }
 
-.resource img {
+.resource-icon {
     width: 80px;
     height: 80px;
+    border-radius: 50%;
+    background-color: #f5a623; /* Gold color */
 }
 
 .resource p {
@@ -82,9 +84,11 @@ h2 {
     margin: 10px;
 }
 
-.miner img {
+.miner-icon {
     width: 80px;
     height: 80px;
+    border-radius: 50%;
+    background-color: #777; /* Gray color for miner */
 }
 
 .miner p {
