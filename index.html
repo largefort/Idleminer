@@ -9,18 +9,50 @@
 <body>
     <div id="container">
         <h1>Idle Miner Game</h1>
-        <p>Gold: <span id="gold">0</span></p>
-        <p>Silver: <span id="silver">0</span></p>
-        <p>Diamond: <span id="diamond">0</span></p>
-        <p>Coal: <span id="coal">0</span></p>
+        <div class="resource-container">
+            <div class="resource">
+                <img src="gold.png" alt="Gold">
+                <p><span id="gold">0</span></p>
+            </div>
+            <div class="resource">
+                <img src="silver.png" alt="Silver">
+                <p><span id="silver">0</span></p>
+            </div>
+            <div class="resource">
+                <img src="diamond.png" alt="Diamond">
+                <p><span id="diamond">0</span></p>
+            </div>
+            <div class="resource">
+                <img src="coal.png" alt="Coal">
+                <p><span id="coal">0</span></p>
+            </div>
+        </div>
         <button id="mineButton">Mine Resources</button>
         <div id="clickText" class="hidden">+<span id="clickAmount">0</span></div>
         <hr>
         <h2>Hire Miners:</h2>
-        <button id="hireGoldMiner">Hire Gold Miner</button>
-        <button id="hireSilverMiner">Hire Silver Miner</button>
-        <button id="hireDiamondMiner">Hire Diamond Miner</button>
-        <button id="hireCoalMiner">Hire Coal Miner</button>
+        <div class="miner-container">
+            <div class="miner">
+                <img src="miner_gold.png" alt="Gold Miner">
+                <button id="hireGoldMiner">Hire Gold Miner</button>
+                <p>Cost: 10 Gold</p>
+            </div>
+            <div class="miner">
+                <img src="miner_silver.png" alt="Silver Miner">
+                <button id="hireSilverMiner">Hire Silver Miner</button>
+                <p>Cost: 10 Silver</p>
+            </div>
+            <div class="miner">
+                <img src="miner_diamond.png" alt="Diamond Miner">
+                <button id="hireDiamondMiner">Hire Diamond Miner</button>
+                <p>Cost: 10 Diamond</p>
+            </div>
+            <div class="miner">
+                <img src="miner_coal.png" alt="Coal Miner">
+                <button id="hireCoalMiner">Hire Coal Miner</button>
+                <p>Cost: 10 Coal</p>
+            </div>
+        </div>
         <audio id="clickSound">
             <source src="click_sound.mp3" type="audio/mpeg">
             <!-- Add other formats (e.g., OGG) for better browser compatibility -->
