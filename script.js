@@ -62,15 +62,32 @@ function loadGame() {
     }
 }
 
-// Function to mine resources continuously by miners
-function autoMineResources() {
-    gold += goldMiners * minerRates.gold;
-    silver += silverMiners * minerRates.silver;
-    diamond += diamondMiners * minerRates.diamond;
-    coal += coalMiners * minerRates.coal;
+// Function to mine resources when the button is clicked
+function mineResources() {
+    gold += 1 + goldMiners * minerRates.gold;
+    silver += 1 + silverMiners * minerRates.silver;
+    diamond += 1 + diamondMiners * minerRates.diamond;
+    coal += 1 + coalMiners * minerRates.coal;
     updateResourceDisplays();
 
-    // Save the game data to localStorage after auto-mining
+    // Show the click text with the amount of resources gained
+    const clickText = document.getElementById('clickText');
+    const clickAmount = document.getElementById('clickAmount');
+    clickAmount.innerText = 1 + goldMiners * minerRates.gold +
+        silverMiners * minerRates.silver +
+        diamondMiners * minerRates.diamond +
+        coalMiners * minerRates.coal;
+    clickText.classList.add('active');
+
+    // Hide the click text after a short delay
+    setTimeout(() => {
+        clickText.classList.remove('active');
+    }, 1000);
+
+    // Play the click sound
+    playClickSound();
+
+    // Save the game after every click
     saveGame();
 }
 
@@ -110,7 +127,7 @@ function hireMiner(resourceType) {
             break;
     }
 
-    // Save the game data to localStorage after hiring a miner
+    // Save the game after hiring a miner
     saveGame();
 }
 
@@ -128,8 +145,8 @@ function startGame() {
     document.getElementById('hireDiamondMiner').addEventListener('click', () => hireMiner('diamond'));
     document.getElementById('hireCoalMiner').addEventListener('click', () => hireMiner('coal'));
 
-    // Start auto-mining by miners
-    setInterval(autoMineResources, 1000); // Auto-mine every 1 second
+    // Periodically save the game data to localStorage
+    setInterval(saveGame, 60000); // Save every minute (adjust as needed)
 }
 
 // Run the game
