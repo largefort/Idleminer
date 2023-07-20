@@ -36,4 +36,4 @@ button {
 /* Show the clickText when it has the "active" class */
 #clickText.active {
     opacity: 1;
-}*/
+}
