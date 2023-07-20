@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idle Miner Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="container">
+        <h1>Idle Miner Game</h1>
+        <p>Gold: <span id="gold">0</span></p>
+        <p>Silver: <span id="silver">0</span></p>
+        <p>Diamond: <span id="diamond">0</span></p>
+        <p>Coal: <span id="coal">0</span></p>
+        <button id="mineButton">Mine Resources</button>
+        <div id="clickText" class="hidden">+<span id="clickAmount">0</span></div>
+        <hr>
+        <h2>Hire Miners:</h2>
+        <button id="hireGoldMiner">Hire Gold Miner</button>
+        <button id="hireSilverMiner">Hire Silver Miner</button>
+        <button id="hireDiamondMiner">Hire Diamond Miner</button>
+        <button id="hireCoalMiner">Hire Coal Miner</button>
+        <audio id="clickSound">
+            <source src="click_sound.mp3" type="audio/mpeg">
+            <!-- Add other formats (e.g., OGG) for better browser compatibility -->
+        </audio>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
