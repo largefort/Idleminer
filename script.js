@@ -131,6 +131,20 @@ function hireMiner(resourceType) {
     saveGame();
 }
 
+// Function to automatically mine resources
+function autoMineResources() {
+    gold += goldMiners * minerRates.gold;
+    silver += silverMiners * minerRates.silver;
+    diamond += diamondMiners * minerRates.diamond;
+    coal += coalMiners * minerRates.coal;
+    updateResourceDisplays();
+}
+
+// Start the auto-mining process
+function startAutoMining() {
+    setInterval(autoMineResources, 1000); // Adjust the interval as needed (1000ms = 1 second)
+}
+
 // Start the game
 function startGame() {
     // Load the game data from localStorage
@@ -145,8 +159,8 @@ function startGame() {
     document.getElementById('hireDiamondMiner').addEventListener('click', () => hireMiner('diamond'));
     document.getElementById('hireCoalMiner').addEventListener('click', () => hireMiner('coal'));
 
-    // Periodically save the game data to localStorage
-    setInterval(saveGame, 60000); // Save every minute (adjust as needed)
+    // Start the auto-mining process
+    startAutoMining();
 }
 
 // Run the game
