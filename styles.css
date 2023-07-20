@@ -1,3 +1,4 @@
+/* General styles for the game */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -9,6 +10,7 @@ body {
     padding: 20px;
     width: 300px;
     margin: 0 auto;
+    position: relative;
 }
 
 button {
@@ -20,11 +22,9 @@ button {
     margin-top: 20px;
 }
 
-#clickText {
+/* Number text styles */
+#clickerNumber {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     font-size: 24px;
     color: green;
     font-weight: bold;
@@ -33,7 +33,39 @@ button {
     transition: opacity 0.2s;
 }
 
-/* Show the clickText when it has the "active" class */
-#clickText.active {
+#clickerNumber.active {
     opacity: 1;
+}
+
+/* Styling for the resources display */
+p {
+    margin: 5px 0;
+}
+
+/* Styling for the hire miners button */
+#hireMinerButton {
+    background-color: #2196F3;
+}
+
+/* Styling for the resource amounts */
+span {
+    font-weight: bold;
+    color: #666;
+}
+
+/* Styling for the header */
+h1 {
+    font-size: 24px;
+}
+
+/* Styling for the container background */
+#container {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the hire miners count */
+#hireMiners {
+    color: #f44336;
 }
