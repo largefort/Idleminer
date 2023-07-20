@@ -83,7 +83,6 @@ function hireMiner(resourceType) {
                 goldMiners++;
                 gold -= cost;
                 updateResourceDisplays();
-                playClickSound(); // Play the click sound when hiring a miner
             }
             break;
         case 'silver':
@@ -91,7 +90,6 @@ function hireMiner(resourceType) {
                 silverMiners++;
                 silver -= cost;
                 updateResourceDisplays();
-                playClickSound(); // Play the click sound when hiring a miner
             }
             break;
         case 'diamond':
@@ -99,7 +97,6 @@ function hireMiner(resourceType) {
                 diamondMiners++;
                 diamond -= cost;
                 updateResourceDisplays();
-                playClickSound(); // Play the click sound when hiring a miner
             }
             break;
         case 'coal':
@@ -107,7 +104,6 @@ function hireMiner(resourceType) {
                 coalMiners++;
                 coal -= cost;
                 updateResourceDisplays();
-                playClickSound(); // Play the click sound when hiring a miner
             }
             break;
         default:
@@ -124,7 +120,7 @@ function startGame() {
     loadGame();
 
     // Attach the mineResources function to the button click event
-    document.getElementById('mineButton').addEventListener('click', autoMineResources);
+    document.getElementById('mineButton').addEventListener('click', mineResources);
 
     // Attach the hireMiner function to each hire button
     document.getElementById('hireGoldMiner').addEventListener('click', () => hireMiner('gold'));
