@@ -151,3 +151,6 @@ function startGame() {
 
 // Run the game
 startGame();
+
+// Run the game
+startGame();
