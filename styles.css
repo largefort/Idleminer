@@ -24,7 +24,7 @@ h1 {
 .resource-container {
     display: flex;
     flex-wrap: wrap; /* Allow resources to wrap on smaller screens */
-    justify-content: space-between;
+    justify-content: space-around;
     margin-bottom: 20px;
 }
 
@@ -41,6 +41,9 @@ h1 {
     height: 80px;
     border-radius: 50%;
     background-color: #f5a623; /* Gold color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .resource p {
@@ -78,15 +81,15 @@ h2 {
 .miner-container {
     display: flex;
     flex-wrap: wrap; /* Allow miners to wrap on smaller screens */
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .miner {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 48%; /* Adjust width to 48% to fit two miners on larger screens */
-    margin: 10px 0;
+    width: 25%; /* Adjust width to 25% to fit four miners on larger screens */
+    margin-bottom: 15px;
 }
 
 .miner-icon {
@@ -94,6 +97,9 @@ h2 {
     height: 80px;
     border-radius: 50%;
     background-color: #777; /* Gray color for miner */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .miner p {
@@ -104,18 +110,12 @@ h2 {
 
 /* Media query for mobile devices */
 @media (max-width: 480px) {
-    .resource-container {
-        flex-direction: column;
-    }
-
-    .resource {
-        width: 100%;
-    }
-
+    .resource-container,
     .miner-container {
         flex-direction: column;
     }
 
+    .resource,
     .miner {
         width: 100%;
     }
