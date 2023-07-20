@@ -1,103 +1,94 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+    background-color: #f0f0f0;
 }
 
 #container {
-    max-width: 600px;
-    margin: 50px auto;
-    background-color: #fff;
+    border: 2px solid #ccc;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
     border-radius: 10px;
-    position: relative;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    font-size: 36px;
+    color: #ff8800;
+    font-size: 32px;
     margin-bottom: 20px;
-    color: #4285f4;
 }
 
-h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #555;
+.resource-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
-p {
-    font-size: 18px;
-    margin: 5px 0;
-    color: #444;
+.resource {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-span {
-    font-weight: bold;
+.resource img {
+    width: 80px;
+    height: 80px;
+}
+
+.resource p {
+    font-size: 20px;
+    margin: 5px;
+    color: #333;
 }
 
 button {
-    font-size: 18px;
     padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
     margin-top: 20px;
-    transition: background-color 0.2s ease;
+    border-radius: 5px;
+    font-size: 18px;
 }
 
 button:hover {
     background-color: #45a049;
 }
 
-/* Resource display styles */
-p span {
-    display: inline-block;
-    width: 60px;
-    text-align: right;
+hr {
+    border: 1px solid #ccc;
+    margin: 20px 0;
 }
 
-/* Miner hiring buttons styles */
-button[id^="hire"] {
-    background-color: #4285f4;
+h2 {
+    color: #ff8800;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.miner-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.miner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 10px;
 }
 
-button[id^="hire"]:hover {
-    background-color: #356fed;
+.miner img {
+    width: 80px;
+    height: 80px;
 }
 
-/* Click text styles */
-#clickText {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 24px;
-    color: #4CAF50;
-    font-weight: bold;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s;
+.miner p {
+    font-size: 16px;
+    color: #666;
+    margin-top: 5px;
 }
-
-/* Show the clickText when it has the "active" class */
-#clickText.active {
-    opacity: 1;
-}
-
-/* Animation for miners */
-.miner {
-    animation: minerWork 1s infinite linear;
-}
-
-@keyframes minerWork {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-    100% { transform: translateY(0); }
-}
-
-/* Add more custom CSS styles as needed */
