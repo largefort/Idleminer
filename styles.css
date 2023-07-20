@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    margin: 50px;
+    margin: 20px; /* Reduced margin for mobile devices */
 }
 
 #container {
@@ -17,7 +17,7 @@ button {
     color: white;
     border: none;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 10px; /* Reduced margin-top for mobile devices */
 }
 
 #clickText {
@@ -41,12 +41,12 @@ button {
 /* Mobile-friendly styles */
 @media (max-width: 480px) {
     body {
-        margin: 20px;
+        margin: 10px; /* Further reduced margin for smaller mobile devices */
     }
     #container {
-        width: 100%;
+        width: 90%; /* Adjusted width to fit smaller screens */
     }
     button {
-        margin-top: 10px;
+        margin-top: 5px; /* Further reduced margin-top for smaller mobile devices */
     }
 }
