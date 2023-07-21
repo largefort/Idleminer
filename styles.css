@@ -45,6 +45,7 @@ button {
     }
     #container {
         width: 90%; /* Adjusted width to fit smaller screens */
+        padding: 10px; /* Reduced padding for smaller screens */
     }
     button {
         margin-top: 5px; /* Further reduced margin-top for smaller mobile devices */
