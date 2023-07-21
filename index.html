@@ -3,30 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Idle Mining Game</title>
+    <title>Idle Miner Game</title>
+    <script src="phaser.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Idle Mining Game</h1>
-    <div id="resources">
-        <span id="coalImg">🪨</span> Coal: <span id="coal">0</span>
-        <span id="goldImg">💰</span> Gold: <span id="gold">0</span>
-        <span id="diamondsImg">💎</span> Diamonds: <span id="diamonds">0</span>
-    </div>
-    <button id="mineBtn">Mine</button>
-    <button id="hireMinerBtn">Hire Miner</button>
-    <div id="miners">
-        Miners: <span id="minerCount">0</span>
-    </div>
-    <div id="upgrades">
-        <h3>Upgrades</h3>
-        <button id="autoMineUpgrade">Auto-Mine Upgrade: 0</button>
-        <button id="minerUpgrade">Miner Upgrade: 0</button>
-    </div>
-    <div id="prestige">
-        <button id="prestigeBtn" disabled>Prestige</button>
-    </div>
-    <div id="status"></div>
-    <script src="app.js"></script>
+    <div id="gameContainer"></div>
+    <script src="script.js"></script>
 </body>
 </html>
