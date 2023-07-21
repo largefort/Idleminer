@@ -9,10 +9,10 @@
 <body>
     <div id="container">
         <h1>Idle Miner Game</h1>
-        <p>Gold: <span id="gold">0</span></p>
-        <p>Silver: <span id="silver">0</span></p>
-        <p>Diamond: <span id="diamond">0</span></p>
-        <p>Coal: <span id="coal">0</span></p>
+        <p>Gold: <span id="gold">0</span> (Level: <span id="goldMinerLevel">1</span>)</p>
+        <p>Silver: <span id="silver">0</span> (Level: <span id="silverMinerLevel">1</span>)</p>
+        <p>Diamond: <span id="diamond">0</span> (Level: <span id="diamondMinerLevel">1</span>)</p>
+        <p>Coal: <span id="coal">0</span> (Level: <span id="coalMinerLevel">1</span>)</p>
         <button id="mineButton">Mine Resources</button>
         <div id="clickText" class="hidden">+<span id="clickAmount">0</span></div>
         <hr>
@@ -21,6 +21,36 @@
         <button id="hireSilverMiner">Hire Silver Miner</button>
         <button id="hireDiamondMiner">Hire Diamond Miner</button>
         <button id="hireCoalMiner">Hire Coal Miner</button>
+        <hr>
+        <h2>Miner Upgrades:</h2>
+        <button id="upgradeGoldMiner">Upgrade Gold Miner</button>
+        <button id="upgradeSilverMiner">Upgrade Silver Miner</button>
+        <button id="upgradeDiamondMiner">Upgrade Diamond Miner</button>
+        <button id="upgradeCoalMiner">Upgrade Coal Miner</button>
+        <hr>
+        <h2>Auto-Mine Toggle:</h2>
+        <label for="autoMineCheckbox">Enable Auto-Mining:</label>
+        <input type="checkbox" id="autoMineCheckbox">
+        <hr>
+        <h2>Resource Exchange:</h2>
+        <label for="exchangeFrom">Exchange From:</label>
+        <select id="exchangeFrom">
+            <option value="gold">Gold</option>
+            <option value="silver">Silver</option>
+            <option value="diamond">Diamond</option>
+            <option value="coal">Coal</option>
+        </select>
+        <label for="exchangeTo">Exchange To:</label>
+        <select id="exchangeTo">
+            <option value="gold">Gold</option>
+            <option value="silver">Silver</option>
+            <option value="diamond">Diamond</option>
+            <option value="coal">Coal</option>
+        </select>
+        <input type="number" id="exchangeAmount" min="1" value="1">
+        <button id="exchangeButton">Exchange</button>
+        <hr>
+        <button id="resetButton">Reset Game</button>
         <audio id="clickSound">
             <source src="click_sound.mp3" type="audio/mpeg">
             <!-- Add other formats (e.g., OGG) for better browser compatibility -->
