@@ -1,48 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Idle Miner Game</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Idle Mining Game with Chat, Player Profile, Skill System, and Mining Locations</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="container">
-        <h1>Idle Miner Game</h1>
-        <p>Gold: <span id="gold">0</span> (Level: <span id="goldMinerLevel">1</span>)</p>
-        <p>Silver: <span id="silver">0</span> (Level: <span id="silverMinerLevel">1</span>)</p>
-        <p>Diamond: <span id="diamond">0</span> (Level: <span id="diamondMinerLevel">1</span>)</p>
-        <p>Coal: <span id="coal">0</span> (Level: <span id="coalMinerLevel">1</span>)</p>
-        <hr>
-        <h2>Upgrade Miners:</h2>
-        <button id="upgradeGoldMiner">Upgrade Gold Miner</button>
-        <button id="upgradeSilverMiner">Upgrade Silver Miner</button>
-        <button id="upgradeDiamondMiner">Upgrade Diamond Miner</button>
-        <button id="upgradeCoalMiner">Upgrade Coal Miner</button>
-        <hr>
-        <h2>Auto-Mine Toggle:</h2>
-        <label for="autoMineCheckbox">Auto-Mine: </label>
-        <input type="checkbox" id="autoMineCheckbox">
-        <hr>
-        <h2>Resource Exchange:</h2>
-        <label for="exchangeFrom">Exchange From:</label>
-        <select id="exchangeFrom">
-            <option value="gold">Gold</option>
-            <option value="silver">Silver</option>
-            <option value="diamond">Diamond</option>
-            <option value="coal">Coal</option>
-        </select>
-        <label for="exchangeTo">To:</label>
-        <select id="exchangeTo">
-            <option value="silver">Silver</option>
-            <option value="diamond">Diamond</option>
-            <option value="coal">Coal</option>
-        </select>
-        <input type="number" id="exchangeAmount" min="1" value="1">
-        <button id="exchangeButton">Exchange</button>
-        <hr>
-        <div id="clickText" class="hidden">+<span id="clickAmount">0</span></div>
+  <div id="game-container">
+    <h1>Idle Mining Game</h1>
+    <div id="resources">
+      <span id="gold">Gold: 0</span>
+      <span id="miners">Miners: 0</span>
     </div>
-    <script src="script.js"></script>
+    <button id="mine">Mine</button>
+  </div>
+  <div id="chat-container">
+    <div id="chat-messages"></div>
+    <input type="text" id="chat-input" placeholder="Type your message..." />
+  </div>
+  <div id="player-profile">
+    <h2>Player Profile</h2>
+    <div>
+      <span id="player-name">Player Name</span>
+      <span id="player-level">Level 1</span>
+    </div>
+    <div id="player-statistics">
+      <span>Total Gold Collected: <span id="total-gold">0</span></span>
+      <span>Total Miners Hired: <span id="total-miners">0</span></span>
+    </div>
+    <div id="player-badges">
+      <h3>Badges</h3>
+      <ul id="badge-list">
+        <!-- Badges will be added dynamically via JavaScript -->
+      </ul>
+    </div>
+  </div>
+  <div id="skills-container">
+    <h2>Skills</h2>
+    <div>
+      <button id="upgrade-mining">Upgrade Mining (Cost: 100 Gold)</button>
+    </div>
+  </div>
+  <div id="mining-locations">
+    <h2>Mining Locations</h2>
+    <ul id="location-list">
+      <li data-location="forest">Forest</li>
+      <li data-location="mountain">Mountain</li>
+      <li data-location="cave">Cave</li>
+    </ul>
+  </div>
+  <div id="resource-inventory">
+    <h2>Resource Inventory</h2>
+    <!-- Resources will be added dynamically via JavaScript -->
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
