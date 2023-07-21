@@ -1,176 +1,178 @@
+// Game variables
 let gold = 0;
-let silver = 0;
-let diamond = 0;
-let coal = 0;
+let totalGold = 0; // New statistic to track total gold collected
+let miners = 0;
+let totalMiners = 0; // New statistic to track total miners hired
+let minerCost = 10;
+let miningSkillLevel = 1; // New variable to track mining skill level
 
-let goldMiners = 0;
-let silverMiners = 0;
-let diamondMiners = 0;
-let coalMiners = 0;
-
-const minerRates = {
-    gold: 1, // Resource units mined per second
-    silver: 2,
-    diamond: 3,
-    coal: 4,
+// Mining locations data
+const miningLocations = {
+  forest: {
+    name: "Forest",
+    resources: ["Wood", "Berries"],
+    productionRate: 1, // Resource production rate per second
+  },
+  mountain: {
+    name: "Mountain",
+    resources: ["Stone", "Ore"],
+    productionRate: 2,
+  },
+  cave: {
+    name: "Cave",
+    resources: ["Gems", "Crystals"],
+    productionRate: 3,
+  },
 };
 
-// Function to update the resource displays
-function updateResourceDisplays() {
-    document.getElementById('gold').innerText = gold;
-    document.getElementById('silver').innerText = silver;
-    document.getElementById('diamond').innerText = diamond;
-    document.getElementById('coal').innerText = coal;
-    document.getElementById('goldMiners').innerText = goldMiners;
-    document.getElementById('silverMiners').innerText = silverMiners;
-    document.getElementById('diamondMiners').innerText = diamondMiners;
-    document.getElementById('coalMiners').innerText = coalMiners;
-}
+let currentLocation = "forest"; // Default location is the forest
 
-// Function to play the click sound
-function playClickSound() {
-    const clickSound = document.getElementById('clickSound');
-    clickSound.currentTime = 0; // Reset the audio to the beginning
-    clickSound.play();
-}
+// Resource inventory data
+let resources = {
+  Wood: 0,
+  Berries: 0,
+  Stone: 0,
+  Ore: 0,
+  Gems: 0,
+  Crystals: 0,
+};
 
-// Function to hire miners
-function hireMiner(resourceType) {
-    switch (resourceType) {
-        case 'gold':
-            goldMiners++;
-            break;
-        case 'silver':
-            silverMiners++;
-            break;
-        case 'diamond':
-            diamondMiners++;
-            break;
-        case 'coal':
-            coalMiners++;
-            break;
-        default:
-            break;
-    }
-    updateResourceDisplays();
-}
+// Offline progression variables
+let lastLoginTime = Date.now(); // Store the last login time
 
-// Function to sell resources
-function sellResource(resourceType) {
-    let amountToSell = 0;
-    switch (resourceType) {
-        case 'gold':
-            amountToSell = gold;
-            gold = 0;
-            break;
-        case 'silver':
-            amountToSell = silver;
-            silver = 0;
-            break;
-        case 'diamond':
-            amountToSell = diamond;
-            diamond = 0;
-            break;
-        case 'coal':
-            amountToSell = coal;
-            coal = 0;
-            break;
-        default:
-            break;
-    }
-    // You can modify the sell rate as needed
-    const sellRate = 0.5; // 0.5 units per resource
-    gold += Math.floor(amountToSell * sellRate);
-    updateResourceDisplays();
-}
+// DOM elements
+const goldDisplay = document.getElementById('gold');
+const totalGoldDisplay = document.getElementById('total-gold');
+const minersDisplay = document.getElementById('miners');
+const totalMinersDisplay = document.getElementById('total-miners');
+const mineButton = document.getElementById('mine');
 
-// Function to reset the game
-function resetGame() {
-    gold = 0;
-    silver = 0;
-    diamond = 0;
-    coal = 0;
-    goldMiners = 0;
-    silverMiners = 0;
-    diamondMiners = 0;
-    coalMiners = 0;
-    updateResourceDisplays();
-}
+const chatMessages = document.getElementById('chat-messages');
+const chatInput = document.getElementById('chat-input');
 
-// Function to mine resources when the button is clicked
+const playerNameDisplay = document.getElementById('player-name');
+const playerLevelDisplay = document.getElementById('player-level');
+const badgeList = document.getElementById('badge-list');
+
+const upgradeMiningButton = document.getElementById('upgrade-mining');
+const locationList = document.getElementById('location-list');
+const resourceInventory = document.getElementById('resource-inventory');
+
+// Function to mine resources based on the location's production rate
 function mineResources() {
-    gold += goldMiners * minerRates.gold;
-    silver += silverMiners * minerRates.silver;
-    diamond += diamondMiners * minerRates.diamond;
-    coal += coalMiners * minerRates.coal;
-    updateResourceDisplays();
-
-    // Show the click text with the amount of resources gained
-    const clickText = document.getElementById('clickText');
-    const clickAmount = document.getElementById('clickAmount');
-    clickAmount.innerText =
-        goldMiners * minerRates.gold +
-        silverMiners * minerRates.silver +
-        diamondMiners * minerRates.diamond +
-        coalMiners * minerRates.coal;
-
-    // Get the dimensions of the clickText container and the window
-    const clickTextRect = clickText.getBoundingClientRect();
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-
-    // Calculate random X and Y coordinates for the clickText within the window
-    const minX = 0;
-    const maxX = windowWidth - clickTextRect.width;
-    const minY = 0;
-    const maxY = windowHeight - clickTextRect.height;
-    const randomX = getRandomNumber(minX, maxX);
-    const randomY = getRandomNumber(minY, maxY);
-
-    // Apply the random position to the clickText
-    clickText.style.left = `${randomX}px`;
-    clickText.style.top = `${randomY}px`;
-
-    // Show the click text
-    clickText.classList.add('active');
-
-    // Hide the click text after a short delay
-    setTimeout(() => {
-        clickText.classList.remove('active');
-    }, 1000);
-
-    // Play the click sound
-    playClickSound();
+  const location = miningLocations[currentLocation];
+  const productionRate = location.productionRate * miningSkillLevel;
+  location.resources.forEach(resource => {
+    // Increment the quantity of the mined resource in the player's inventory
+    resources[resource] += productionRate;
+  });
+  updateDisplay();
 }
 
-// Function to get a random number between min (inclusive) and max (exclusive)
-function getRandomNumber(min, max) {
-    return Math.random() * (max - min) + min;
+// Function to update the resource inventory display
+function updateInventoryDisplay() {
+  // Clear the existing inventory display
+  resourceInventory.innerHTML = '';
+  
+  // Loop through the resources object and display each resource and its quantity
+  for (const resource in resources) {
+    const resourceElement = document.createElement('div');
+    resourceElement.textContent = `${resource}: ${resources[resource]}`;
+    resourceInventory.appendChild(resourceElement);
+  }
 }
 
-// Start the game
-function startGame() {
-    // Attach the mineResources function to the button click event
-    document.getElementById('mineButton').addEventListener('click', mineResources);
-
-    // Attach the hireMiner function to each hire button
-    document.getElementById('hireGoldMiner').addEventListener('click', () => hireMiner('gold'));
-    document.getElementById('hireSilverMiner').addEventListener('click', () => hireMiner('silver'));
-    document.getElementById('hireDiamondMiner').addEventListener('click', () => hireMiner('diamond'));
-    document.getElementById('hireCoalMiner').addEventListener('click', () => hireMiner('coal'));
-
-    // Attach the sellResource function to each sell button
-    document.getElementById('sellGold').addEventListener('click', () => sellResource('gold'));
-    document.getElementById('sellSilver').addEventListener('click', () => sellResource('silver'));
-    document.getElementById('sellDiamond').addEventListener('click', () => sellResource('diamond'));
-    document.getElementById('sellCoal').addEventListener('click', () => sellResource('coal'));
-
-    // Attach the resetGame function to the reset button
-    document.getElementById('resetGame').addEventListener('click', resetGame);
-
-    // Update resource displays initially
-    updateResourceDisplays();
+// Function to change the current mining location
+function changeLocation(location) {
+  currentLocation = location;
+  updateDisplay();
 }
 
-// Run the game
-startGame();
+// Function to hire a miner
+function hireMiner() {
+  if (gold >= minerCost) {
+    gold -= minerCost;
+    miners++;
+    totalMiners++; // Track total miners hired
+    minerCost *= 2; // Increase the cost of the next miner
+    updateDisplay();
+  }
+}
+
+// Function to upgrade mining efficiency
+function upgradeMining() {
+  const upgradeCost = 100 * miningSkillLevel; // Upgrade cost increases with skill level
+  if (gold >= upgradeCost) {
+    gold -= upgradeCost;
+    miningSkillLevel++; // Increase the mining skill level
+    updateDisplay();
+    updateSkillsDisplay();
+  }
+}
+
+// Function to add a badge to the profile
+function addBadge(badgeName) {
+  const badgeElement = document.createElement('li');
+  badgeElement.textContent = badgeName;
+  badgeList.appendChild(badgeElement);
+}
+
+// Function to update the player profile display
+function updateProfile() {
+  playerNameDisplay.textContent = 'Player Name'; // Replace with the player's actual name
+  playerLevelDisplay.textContent = `Level ${calculatePlayerLevel()}`;
+  totalGoldDisplay.textContent = totalGold;
+  totalMinersDisplay.textContent = totalMiners;
+  // Add example badges (you can add conditions to unlock specific badges)
+  addBadge('Mining Novice');
+  addBadge('Wealthy Miner');
+  addBadge('Experienced Digger');
+  addBadge('Super Clicker');
+  // Add more badges based on the player's achievements
+}
+
+// Function to calculate the player's level (this is just a simple example)
+function calculatePlayerLevel() {
+  return Math.floor(totalGold / 1000) + 1;
+}
+
+// Function to update the display
+function updateDisplay() {
+  goldDisplay.textContent = `Gold: ${gold}`;
+  minersDisplay.textContent = `Miners: ${miners}`;
+  mineButton.textContent = `Mine (${(miners + 1) * miningSkillLevel} G/s) - Cost: ${minerCost} Gold`;
+  updateInventoryDisplay();
+}
+
+// Function to update the skills display
+function updateSkillsDisplay() {
+  upgradeMiningButton.textContent = `Upgrade Mining (Cost: ${100 * miningSkillLevel} Gold)`;
+}
+
+// ... (previous code) ...
+
+// Event listeners
+mineButton.addEventListener('click', mineResources);
+upgradeMiningButton.addEventListener('click', upgradeMining);
+locationList.addEventListener('click', (event) => {
+  if (event.target.nodeName === 'LI') {
+    changeLocation(event.target.dataset.location);
+  }
+});
+
+// ... (previous code) ...
+
+// Initial display update
+updateDisplay();
+updateProfile();
+updateSkillsDisplay();
+updateInventoryDisplay();
+
+// Start the game loop
+// ... (previous code) ...
+
+// Save the game state when the window is closed or reloaded
+// ... (previous code) ...
+
+// Load the game state when the window is loaded
+// ... (previous code) ...
