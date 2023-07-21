@@ -8,11 +8,6 @@ let silverMiners = 0;
 let diamondMiners = 0;
 let coalMiners = 0;
 
-let goldMinerLevel = 1;
-let silverMinerLevel = 1;
-let diamondMinerLevel = 1;
-let coalMinerLevel = 1;
-
 const minerRates = {
     gold: 1, // Resource units mined per second
     silver: 2,
@@ -20,117 +15,162 @@ const minerRates = {
     coal: 4,
 };
 
-const upgradeCosts = {
-    gold: 100,
-    silver: 200,
-    diamond: 300,
-    coal: 400,
-};
+// Function to update the resource displays
+function updateResourceDisplays() {
+    document.getElementById('gold').innerText = gold;
+    document.getElementById('silver').innerText = silver;
+    document.getElementById('diamond').innerText = diamond;
+    document.getElementById('coal').innerText = coal;
+    document.getElementById('goldMiners').innerText = goldMiners;
+    document.getElementById('silverMiners').innerText = silverMiners;
+    document.getElementById('diamondMiners').innerText = diamondMiners;
+    document.getElementById('coalMiners').innerText = coalMiners;
+}
 
-const autoMineInterval = 1000; // Adjust the interval as needed (1000ms = 1 second)
-let autoMiningEnabled = false;
+// Function to play the click sound
+function playClickSound() {
+    const clickSound = document.getElementById('clickSound');
+    clickSound.currentTime = 0; // Reset the audio to the beginning
+    clickSound.play();
+}
 
-// ... (previous code)
-
-// Function to upgrade a miner
-function upgradeMiner(resourceType) {
-    const upgradeCost = upgradeCosts[resourceType];
+// Function to hire miners
+function hireMiner(resourceType) {
     switch (resourceType) {
         case 'gold':
-            if (gold >= upgradeCost) {
-                goldMinerLevel++;
-                gold -= upgradeCost;
-                updateResourceDisplays();
-                playHireMinerSound(); // Play the hireMiner sound
-            }
+            goldMiners++;
             break;
         case 'silver':
-            if (silver >= upgradeCost) {
-                silverMinerLevel++;
-                silver -= upgradeCost;
-                updateResourceDisplays();
-                playHireMinerSound(); // Play the hireMiner sound
-            }
+            silverMiners++;
             break;
         case 'diamond':
-            if (diamond >= upgradeCost) {
-                diamondMinerLevel++;
-                diamond -= upgradeCost;
-                updateResourceDisplays();
-                playHireMinerSound(); // Play the hireMiner sound
-            }
+            diamondMiners++;
             break;
         case 'coal':
-            if (coal >= upgradeCost) {
-                coalMinerLevel++;
-                coal -= upgradeCost;
-                updateResourceDisplays();
-                playHireMinerSound(); // Play the hireMiner sound
-            }
+            coalMiners++;
             break;
         default:
             break;
     }
-
-    // Save the game after upgrading a miner
-    saveGame();
+    updateResourceDisplays();
 }
 
-// Function to handle the auto-mine toggle
-function toggleAutoMine() {
-    autoMiningEnabled = !autoMiningEnabled;
-    if (autoMiningEnabled) {
-        startAutoMining();
-    }
-}
-
-// Function to exchange resources
-function exchangeResources(fromResourceType, toResourceType, exchangeAmount) {
-    const exchangeRate = 2; // Adjust the exchange rate as needed
-    switch (fromResourceType) {
+// Function to sell resources
+function sellResource(resourceType) {
+    let amountToSell = 0;
+    switch (resourceType) {
         case 'gold':
-            if (gold >= exchangeAmount) {
-                gold -= exchangeAmount;
-                const exchangedAmount = exchangeAmount * exchangeRate;
-                switch (toResourceType) {
-                    case 'silver':
-                        silver += exchangedAmount;
-                        break;
-                    case 'diamond':
-                        diamond += exchangedAmount;
-                        break;
-                    case 'coal':
-                        coal += exchangedAmount;
-                        break;
-                    default:
-                        break;
-                }
-                updateResourceDisplays();
-                playClickSound(); // Play the click sound
-            }
+            amountToSell = gold;
+            gold = 0;
             break;
-        // Handle other resource types similarly
+        case 'silver':
+            amountToSell = silver;
+            silver = 0;
+            break;
+        case 'diamond':
+            amountToSell = diamond;
+            diamond = 0;
+            break;
+        case 'coal':
+            amountToSell = coal;
+            coal = 0;
+            break;
         default:
             break;
     }
-
-    // Save the game after exchanging resources
-    saveGame();
+    // You can modify the sell rate as needed
+    const sellRate = 0.5; // 0.5 units per resource
+    gold += Math.floor(amountToSell * sellRate);
+    updateResourceDisplays();
 }
 
-// Attach the upgradeMiner function to each upgrade button
-document.getElementById('upgradeGoldMiner').addEventListener('click', () => upgradeMiner('gold'));
-document.getElementById('upgradeSilverMiner').addEventListener('click', () => upgradeMiner('silver'));
-document.getElementById('upgradeDiamondMiner').addEventListener('click', () => upgradeMiner('diamond'));
-document.getElementById('upgradeCoalMiner').addEventListener('click', () => upgradeMiner('coal'));
+// Function to reset the game
+function resetGame() {
+    gold = 0;
+    silver = 0;
+    diamond = 0;
+    coal = 0;
+    goldMiners = 0;
+    silverMiners = 0;
+    diamondMiners = 0;
+    coalMiners = 0;
+    updateResourceDisplays();
+}
 
-// Attach the toggleAutoMine function to the auto-mine checkbox
-document.getElementById('autoMineCheckbox').addEventListener('change', toggleAutoMine);
+// Function to mine resources when the button is clicked
+function mineResources() {
+    gold += goldMiners * minerRates.gold;
+    silver += silverMiners * minerRates.silver;
+    diamond += diamondMiners * minerRates.diamond;
+    coal += coalMiners * minerRates.coal;
+    updateResourceDisplays();
 
-// Attach the exchangeResources function to the exchange button
-document.getElementById('exchangeButton').addEventListener('click', () => {
-    const fromResourceType = document.getElementById('exchangeFrom').value;
-    const toResourceType = document.getElementById('exchangeTo').value;
-    const exchangeAmount = parseInt(document.getElementById('exchangeAmount').value, 10);
-    exchangeResources(fromResourceType, toResourceType, exchangeAmount);
-});
+    // Show the click text with the amount of resources gained
+    const clickText = document.getElementById('clickText');
+    const clickAmount = document.getElementById('clickAmount');
+    clickAmount.innerText =
+        goldMiners * minerRates.gold +
+        silverMiners * minerRates.silver +
+        diamondMiners * minerRates.diamond +
+        coalMiners * minerRates.coal;
+
+    // Get the dimensions of the clickText container and the window
+    const clickTextRect = clickText.getBoundingClientRect();
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    // Calculate random X and Y coordinates for the clickText within the window
+    const minX = 0;
+    const maxX = windowWidth - clickTextRect.width;
+    const minY = 0;
+    const maxY = windowHeight - clickTextRect.height;
+    const randomX = getRandomNumber(minX, maxX);
+    const randomY = getRandomNumber(minY, maxY);
+
+    // Apply the random position to the clickText
+    clickText.style.left = `${randomX}px`;
+    clickText.style.top = `${randomY}px`;
+
+    // Show the click text
+    clickText.classList.add('active');
+
+    // Hide the click text after a short delay
+    setTimeout(() => {
+        clickText.classList.remove('active');
+    }, 1000);
+
+    // Play the click sound
+    playClickSound();
+}
+
+// Function to get a random number between min (inclusive) and max (exclusive)
+function getRandomNumber(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+// Start the game
+function startGame() {
+    // Attach the mineResources function to the button click event
+    document.getElementById('mineButton').addEventListener('click', mineResources);
+
+    // Attach the hireMiner function to each hire button
+    document.getElementById('hireGoldMiner').addEventListener('click', () => hireMiner('gold'));
+    document.getElementById('hireSilverMiner').addEventListener('click', () => hireMiner('silver'));
+    document.getElementById('hireDiamondMiner').addEventListener('click', () => hireMiner('diamond'));
+    document.getElementById('hireCoalMiner').addEventListener('click', () => hireMiner('coal'));
+
+    // Attach the sellResource function to each sell button
+    document.getElementById('sellGold').addEventListener('click', () => sellResource('gold'));
+    document.getElementById('sellSilver').addEventListener('click', () => sellResource('silver'));
+    document.getElementById('sellDiamond').addEventListener('click', () => sellResource('diamond'));
+    document.getElementById('sellCoal').addEventListener('click', () => sellResource('coal'));
+
+    // Attach the resetGame function to the reset button
+    document.getElementById('resetGame').addEventListener('click', resetGame);
+
+    // Update resource displays initially
+    updateResourceDisplays();
+}
+
+// Run the game
+startGame();
