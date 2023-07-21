@@ -35,6 +35,13 @@ function playClickSound() {
     clickSound.play();
 }
 
+// Function to play the hireMiner sound
+function playHireMinerSound() {
+    const hireMinerSound = document.getElementById('hireMinerSound');
+    hireMinerSound.currentTime = 0; // Reset the audio to the beginning
+    hireMinerSound.play();
+}
+
 // Function to save the game data to localStorage
 function saveGame() {
     const gameData = {
@@ -124,6 +131,7 @@ function hireMiner(resourceType) {
                 goldMiners++;
                 gold -= cost;
                 updateResourceDisplays();
+                playHireMinerSound(); // Play the hireMiner sound
             }
             break;
         case 'silver':
@@ -131,6 +139,7 @@ function hireMiner(resourceType) {
                 silverMiners++;
                 silver -= cost;
                 updateResourceDisplays();
+                playHireMinerSound(); // Play the hireMiner sound
             }
             break;
         case 'diamond':
@@ -138,6 +147,7 @@ function hireMiner(resourceType) {
                 diamondMiners++;
                 diamond -= cost;
                 updateResourceDisplays();
+                playHireMinerSound(); // Play the hireMiner sound
             }
             break;
         case 'coal':
@@ -145,6 +155,7 @@ function hireMiner(resourceType) {
                 coalMiners++;
                 coal -= cost;
                 updateResourceDisplays();
+                playHireMinerSound(); // Play the hireMiner sound
             }
             break;
         default:
