@@ -1,8 +1,10 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    margin: 20px; /* Reduced margin for mobile devices */
-    background-color: #f2f2f2; /* Light gray background color */
+    margin: 20px;
+    background-image: linear-gradient(135deg, #f2f2f2, #e0e0e0); /* Gradient background */
+    font-weight: 500; /* Increase font weight for a bolder look */
+    font-size: 18px; /* Increase font size for a better HD appearance */
 }
 
 #container {
@@ -16,19 +18,26 @@ body {
 }
 
 button {
-    padding: 10px 20px;
+    padding: 12px 24px; /* Slightly increased padding for better touch experience */
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
-    margin-top: 10px; /* Reduced margin-top for mobile devices */
-    border-radius: 4px; /* Rounded corners for buttons */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-    transition: background-color 0.2s; /* Smooth transition for background color */
+    margin-top: 10px;
+    border-radius: 8px; /* Increased rounded corners for buttons */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+    transition: background-color 0.2s, transform 0.2s; /* Added transition for transform */
 }
 
 button:hover {
-    background-color: #45a049; /* Darker green on hover */
+    background-color: #45a049;
+    transform: scale(1.05); /* Slightly scale up the button on hover */
+}
+
+/* Added a press effect when the button is clicked */
+button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #clickText {
@@ -53,6 +62,7 @@ button:hover {
 @media (max-width: 480px) {
     body {
         margin: 10px; /* Further reduced margin for smaller mobile devices */
+        font-size: 16px; /* Adjusted font size for smaller screens */
     }
     #container {
         width: 90%; /* Adjusted width to fit smaller screens */
@@ -61,6 +71,6 @@ button:hover {
     button {
         margin-top: 5px; /* Further reduced margin-top for smaller mobile devices */
         padding: 8px 16px; /* Adjusted padding for smaller screens */
-        font-size: 16px; /* Adjusted font size for smaller screens */
+        font-size: 14px; /* Adjusted font size for smaller screens */
     }
 }
