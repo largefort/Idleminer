@@ -15,6 +15,11 @@ const minerRates = {
     coal: 4,
 };
 
+// Function to get a random number between min (inclusive) and max (exclusive)
+function getRandomNumber(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
 // Update the resource displays
 function updateResourceDisplays() {
     document.getElementById('gold').innerText = gold;
@@ -77,6 +82,25 @@ function mineResources() {
         silverMiners * minerRates.silver +
         diamondMiners * minerRates.diamond +
         coalMiners * minerRates.coal;
+
+    // Get the dimensions of the clickText container and the window
+    const clickTextRect = clickText.getBoundingClientRect();
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    // Calculate random X and Y coordinates for the clickText within the window
+    const minX = 0;
+    const maxX = windowWidth - clickTextRect.width;
+    const minY = 0;
+    const maxY = windowHeight - clickTextRect.height;
+    const randomX = getRandomNumber(minX, maxX);
+    const randomY = getRandomNumber(minY, maxY);
+
+    // Apply the random position to the clickText
+    clickText.style.left = `${randomX}px`;
+    clickText.style.top = `${randomY}px`;
+
+    // Show the click text
     clickText.classList.add('active');
 
     // Hide the click text after a short delay
