@@ -1,66 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mining Game</title>
+    <title>Idle Miner Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="game-container">
-        <div class="mine-entrance" id="mineEntrance">
-            <div class="cart"></div>
-            <div class="cart-track"></div>
-            <div class="worker"></div>
-            <div class="worker"></div>
-            <div class="resource-deposit gold">
-                <div class="glowing-deposit"></div>
-            </div>
-            <div class="resource-deposit silver">
-                <div class="glowing-deposit"></div>
-            </div>
-            <div class="resource-deposit diamond">
-                <div class="glowing-deposit"></div>
-            </div>
-            <div class="resource-deposit coal">
-                <div class="glowing-deposit"></div>
-            </div>
-            <div class="resource-deposit emerald">
-                <div class="glowing-deposit"></div>
-            </div>
-            <div class="resource-deposit crystal">
-                <div class="glowing-deposit"></div>
-            </div>
-            <div class="pickaxe"></div>
-            <div class="resource-particles"></div>
+    <div class="container">
+        <div id="game-container">
+            <!-- Game canvas will be rendered here -->
         </div>
-        <div class="underground-tunnel" id="undergroundTunnel"></div>
-        <div class="collected-resources" id="collectedResources">
-            <span>Collected Resources:</span>
-            <span>Gold: <span id="goldCount">0</span></span>
-            <span>Silver: <span id="silverCount">0</span></span>
-            <span>Diamond: <span id="diamondCount">0</span></span>
-            <span>Coal: <span id="coalCount">0</span></span>
-            <span>Emerald: <span id="emeraldCount">0</span></span>
-            <span>Crystal: <span id="crystalCount">0</span></span>
+        <div id="resources-container">
+            <!-- Display resources and their quantities -->
         </div>
-        <div class="upgrades" id="upgrades">
-            <h3>Upgrades</h3>
-            <button id="upgradePickaxe" onclick="purchaseUpgrade('pickaxe')">Upgrade Pickaxe (Cost: <span id="pickaxeCost">10</span> gold)</button>
-            <button id="upgradeWorkers" onclick="purchaseUpgrade('workers')">Hire More Workers (Cost: <span id="workersCost">50</span> gold)</button>
-            <button id="prestigeButton">Prestige</button>
-            <button id="powerUpButton">Activate Power-up (Cost: 200 gold)</button>
-        </div>
-        <div class="notifications" id="notifications">
-            <div class="notification"></div>
-        </div>
-        <div class="leaderboard" id="leaderboard">
-            <h3>Leaderboard</h3>
-            <ol>
-                <!-- Leaderboard entries will be added dynamically through JavaScript -->
-            </ol>
-        </div>
+        <button id="toggle-hd-button">Toggle HD Mode</button>
+        <button id="hire-miner-button">Hire Miner (${miners})</button>
+        <button id="buy-upgrade-button">Buy Upgrade (Cost: ${upgradeCost})</button>
     </div>
-    <script src="script.js"></script>
+    <script src="game.js"></script>
 </body>
 </html>
