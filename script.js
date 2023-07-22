@@ -24,6 +24,16 @@ const upgradeEffects = {
     workers: 1, // Increase resource yield by adding more resource particles per deposit
 };
 
+const notifications = document.getElementById('notifications');
+const notificationTimeout = 2000; // Duration of notification display in milliseconds
+
+// Resource deposit unlock thresholds
+const unlockThresholds = {
+    silver: 10, // Unlock silver deposit when player collects 10 gold
+    diamond: 50, // Unlock diamond deposit when player collects 50 gold
+    coal: 100, // Unlock coal deposit when player collects 100 gold
+};
+
 function animateScene() {
     cart.style.animation = 'cartAnimation 4s infinite'; // Cart animation lasting 4 seconds, repeating infinitely
     worker1.style.animation = 'workerAnimation1 3s infinite'; // Worker 1 animation lasting 3 seconds, repeating infinitely
@@ -63,16 +73,43 @@ function createResourceParticles(resourceClass) {
     }
 }
 
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.classList.add('notification');
+    notification.textContent = message;
+    notifications.appendChild(notification);
+
+    setTimeout(() => {
+        notification.remove();
+    }, notificationTimeout);
+}
+
+function checkResourceUnlock() {
+    if (collectedResources.gold >= unlockThresholds.silver) {
+        document.querySelector('.silver').classList.add('unlocked');
+    }
+    if (collectedResources.gold >= unlockThresholds.diamond) {
+        document.querySelector('.diamond').classList.add('unlocked');
+    }
+    if (collectedResources.gold >= unlockThresholds.coal) {
+        document.querySelector('.coal').classList.add('unlocked');
+    }
+}
+
 function collectResource(deposit) {
-    const resourceType = deposit.classList[1]; // Get the class name of the deposit (e.g., 'gold', 'silver', etc.)
-    collectedResources[resourceType]++; // Increase the count for the collected resource
-    updateCollectedResourcesUI(); // Update the UI to display the new collected resources
-    deposit.classList.remove('glowing-deposit'); // Remove glowing effect after collecting resources
-    deposit.querySelectorAll('.resource-particle').forEach((particle) => particle.remove()); // Remove resource particles
+    const resourceType = deposit.classList[1];
+    collectedResources[resourceType]++;
+    updateCollectedResourcesUI();
+    deposit.classList.remove('glowing-deposit');
+    deposit.querySelectorAll('.resource-particle').forEach((particle) => particle.remove());
+
+    // Show notification for collected resource
+    showNotification(`+1 ${resourceType}`);
+
+    checkResourceUnlock();
 }
 
 function updateCollectedResourcesUI() {
-    // Update the UI to display the new collected resources
     document.getElementById('goldCount').textContent = collectedResources.gold;
     document.getElementById('silverCount').textContent = collectedResources.silver;
     document.getElementById('diamondCount').textContent = collectedResources.diamond;
@@ -82,7 +119,7 @@ function updateCollectedResourcesUI() {
 function purchaseUpgrade(upgradeType) {
     const cost = upgradeCosts[upgradeType];
     if (collectedResources.gold >= cost) {
-        collectedResources.gold -= cost; // Deduct the cost from collected gold
+        collectedResources.gold -= cost;
         applyUpgradeEffect(upgradeType);
         updateCollectedResourcesUI();
         updateUpgradeCosts();
@@ -100,7 +137,6 @@ function applyUpgradeEffect(upgradeType) {
             increaseResourceParticles('.diamond');
             increaseResourceParticles('.coal');
             break;
-        // Add more upgrade cases as needed for other upgrades
     }
 }
 
@@ -122,7 +158,7 @@ function updateUpgradeCosts() {
 
 function animateUndergroundTunnel() {
     undergroundTunnel.style.display = 'block';
-    undergroundTunnel.style.animation = 'slideUpAnimation 3s forwards'; // Slide up animation lasting 3 seconds, and staying at the final state
+    undergroundTunnel.style.animation = 'slideUpAnimation 3s forwards';
 
     setTimeout(() => {
         undergroundTunnel.style.display = 'none';
@@ -132,6 +168,5 @@ function animateUndergroundTunnel() {
     requestAnimationFrame(animateUndergroundTunnel);
 }
 
-// Start the animations
 animateScene();
 animateUndergroundTunnel();
