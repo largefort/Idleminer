@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px; /* Reduced margin for mobile devices */
+}
+
+#container {
+    border: 2px solid #ccc;
+    padding: 20px;
+    width: 300px;
+    margin: 0 auto;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px; /* Reduced margin-top for mobile devices */
+}
+
+#clickText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: green;
+    font-weight: bold;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+/* Show the clickText when it has the "active" class */
+#clickText.active {
+    opacity: 1;
+}
+
+/* Mobile-friendly styles */
+@media (max-width: 480px) {
+    body {
+        margin: 10px; /* Further reduced margin for smaller mobile devices */
+    }
+    #container {
+        width: 90%; /* Adjusted width to fit smaller screens */
+    }
+    button {
+        margin-top: 5px; /* Further reduced margin-top for smaller mobile devices */
+    }
+}
