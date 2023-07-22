@@ -1,138 +1,105 @@
-// Variables for resource collection and upgrades
-let collectedResources = {
+// Game state
+let resources = {
     gold: 0,
     silver: 0,
+    copper: 0,
     diamond: 0,
-    coal: 0,
     emerald: 0,
-    crystal: 0,
+    ruby: 0,
 };
 
-let cartPosition = -10;
-let worker1Position = 20;
-let worker2Position = 50;
+let hdMode = false;
+let miners = 0;
+let minerRate = 1;
+const minerCost = 10;
+let upgradeCost = 100;
+let resourceMultiplier = 1;
+let eventActive = false;
 
-// Upgrade costs and effects
-const upgradeCosts = {
-    pickaxe: 10,
-    workers: 50,
-};
-
-const upgradeEffects = {
-    pickaxe: 2, // Increase mining efficiency by reducing cart travel time
-    workers: 1, // Increase resource yield by adding more resource particles per deposit
-};
-
-// Resource deposit unlock thresholds
-const unlockThresholds = {
-    silver: 10,
-    diamond: 50,
-    coal: 100,
-    emerald: 150, // Unlock emerald deposit when player collects 150 gold
-    crystal: 200, // Unlock crystal deposit when player collects 200 gold
-};
-
-// Notification settings
-const notifications = document.getElementById('notifications');
-const notificationTimeout = 2000; // Duration of notification display in milliseconds
-
-// Animation frame count for leaderboard update
-let frameCount = 0;
-
-// Animate the mining scene
-function animateScene() {
-    // Cart and worker animations...
+// Function to mine resources
+function mine(resource) {
+    resources[resource] += resourceMultiplier;
+    updateResourcesDisplay();
 }
 
-// Animate the underground tunnel
-function animateUndergroundTunnel() {
-    // Tunnel animation...
+// Function to hire a miner
+function hireMiner() {
+    if (resources.gold >= minerCost) {
+        resources.gold -= minerCost;
+        miners++;
+        minerRate += 1; // Increase the miner rate when hiring a new miner
+        updateResourcesDisplay();
+        updateMinerDisplay();
+    }
 }
 
-// Show notification message
-function showNotification(message) {
-    // Notification display...
+// Function to buy an upgrade
+function buyUpgrade() {
+    if (resources.gold >= upgradeCost) {
+        resources.gold -= upgradeCost;
+        resourceMultiplier += 1; // Increase resource production multiplier
+        upgradeCost *= 2; // Double the upgrade cost for the next upgrade
+        updateResourcesDisplay();
+        updateUpgradeDisplay();
+    }
 }
 
-// Check and update resource deposit unlocks
-function checkResourceUnlock() {
-    // Unlock resource deposits...
+// Function to automate resource gathering by hired miners
+function automateMining() {
+    for (const resource in resources) {
+        resources[resource] += miners * minerRate * resourceMultiplier;
+    }
+    updateResourcesDisplay();
 }
 
-// Collect resources from a deposit
-function collectResource(deposit) {
-    // Resource collection...
+// Function to start a special event
+function startEvent() {
+    if (!eventActive) {
+        eventActive = true;
+        setTimeout(endEvent, 10000); // Event will last for 10 seconds (adjust as needed)
+        resourceMultiplier *= 2; // Double resource production during the event
+        updateResourcesDisplay();
+        updateUpgradeDisplay();
+    }
 }
 
-// Drop random gems while mining
-function dropGems(resourceType) {
-    // Gem dropping...
+// Function to end the special event
+function endEvent() {
+    eventActive = false;
+    resourceMultiplier /= 2; // Reset resource production multiplier after the event
+    updateResourcesDisplay();
+    updateUpgradeDisplay();
 }
 
-// Update the collected resources UI
-function updateCollectedResourcesUI() {
-    // Update UI...
+// Function to update resource display
+function updateResourcesDisplay() {
+    // ... (same as before)
 }
 
-// Purchase upgrades for pickaxe and workers
-function purchaseUpgrade(upgradeType) {
-    // Purchase upgrade...
+// Function to update miner display
+function updateMinerDisplay() {
+    const minerButton = document.getElementById('hire-miner-button');
+    minerButton.innerText = `Hire Miner (${miners})`;
 }
 
-// Apply upgrade effects
-function applyUpgradeEffect(upgradeType) {
-    // Apply upgrade effect...
+// Function to update upgrade display
+function updateUpgradeDisplay() {
+    const upgradeButton = document.getElementById('buy-upgrade-button');
+    upgradeButton.innerText = `Buy Upgrade (Cost: ${upgradeCost})`;
 }
 
-// Increase resource particles for upgraded workers
-function increaseResourceParticles(resourceClass) {
-    // Increase particles...
+// Function to toggle HD mode
+function toggleHDMode() {
+    // ... (same as before)
 }
 
-// Update upgrade costs in the UI
-function updateUpgradeCosts() {
-    // Update upgrade costs...
-}
+// Initialization
+document.getElementById('toggle-hd-button').addEventListener('click', toggleHDMode);
+document.getElementById('hire-miner-button').addEventListener('click', hireMiner);
+document.getElementById('buy-upgrade-button').addEventListener('click', buyUpgrade);
 
-// New feature: Random events
-function triggerRandomEvent() {
-    // Random events...
-}
-
-function handleEvent(event) {
-    // Event handling...
-}
-
-// New feature: Time-based rewards
-const timeRewardInterval = 60000; // 1 minute interval
-let timePlayed = 0;
-
-function updatePlayTime() {
-    // Update playtime...
-}
-
-function giveTimeReward() {
-    // Time-based reward...
-}
-
-// New feature: Prestige system
-let prestigeMultiplier = 1;
-let prestigeLevel = 0;
-
-function prestige() {
-    // Prestige system...
-}
-
-// New feature: Power-ups
-function activatePowerUp() {
-    // Activate power-up...
-}
-
-// New feature: Leaderboard
-function addToLeaderboard(score) {
-    // Add entry to leaderboard...
-}
-
-// Call animateScene() and animateUndergroundTunnel() functions to start the game
-animateScene();
-animateUndergroundTunnel();
+// Automated mining using setInterval
+setInterval(automateMining, 1000); // Update every 1 second
+updateResourcesDisplay();
+updateMinerDisplay();
+updateUpgradeDisplay();
