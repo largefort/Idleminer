@@ -7,41 +7,43 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="mine-entrance" id="mineEntrance">
-        <div class="cart"></div>
-        <div class="cart-track"></div>
-        <div class="worker"></div>
-        <div class="worker"></div>
-        <div class="resource-deposit gold">
-            <div class="glowing-deposit"></div>
+    <div class="game-container">
+        <div class="mine-entrance" id="mineEntrance">
+            <div class="cart"></div>
+            <div class="cart-track"></div>
+            <div class="worker"></div>
+            <div class="worker"></div>
+            <div class="resource-deposit gold">
+                <div class="glowing-deposit"></div>
+            </div>
+            <div class="resource-deposit silver">
+                <div class="glowing-deposit"></div>
+            </div>
+            <div class="resource-deposit diamond">
+                <div class="glowing-deposit"></div>
+            </div>
+            <div class="resource-deposit coal">
+                <div class="glowing-deposit"></div>
+            </div>
+            <div class="pickaxe"></div>
+            <div class="resource-particles"></div>
         </div>
-        <div class="resource-deposit silver">
-            <div class="glowing-deposit"></div>
+        <div class="underground-tunnel" id="undergroundTunnel"></div>
+        <div class="collected-resources" id="collectedResources">
+            <span>Collected Resources:</span>
+            <span>Gold: <span id="goldCount">0</span></span>
+            <span>Silver: <span id="silverCount">0</span></span>
+            <span>Diamond: <span id="diamondCount">0</span></span>
+            <span>Coal: <span id="coalCount">0</span></span>
         </div>
-        <div class="resource-deposit diamond">
-            <div class="glowing-deposit"></div>
+        <div class="upgrades" id="upgrades">
+            <h3>Upgrades</h3>
+            <button id="upgradePickaxe" onclick="purchaseUpgrade('pickaxe')">Upgrade Pickaxe (Cost: <span id="pickaxeCost">10</span> gold)</button>
+            <button id="upgradeWorkers" onclick="purchaseUpgrade('workers')">Hire More Workers (Cost: <span id="workersCost">50</span> gold)</button>
         </div>
-        <div class="resource-deposit coal">
-            <div class="glowing-deposit"></div>
+        <div class="notifications" id="notifications">
+            <div class="notification"></div>
         </div>
-        <div class="pickaxe"></div>
-        <div class="resource-particles"></div>
-    </div>
-    <div class="underground-tunnel" id="undergroundTunnel"></div>
-    <div class="collected-resources" id="collectedResources">
-        <span>Collected Resources:</span>
-        <span id="goldCount">0</span>
-        <span id="silverCount">0</span>
-        <span id="diamondCount">0</span>
-        <span id="coalCount">0</span>
-    </div>
-    <div class="upgrades" id="upgrades">
-        <h3>Upgrades</h3>
-        <button id="upgradePickaxe" onclick="purchaseUpgrade('pickaxe')">Upgrade Pickaxe (Cost: <span id="pickaxeCost">10</span> gold)</button>
-        <button id="upgradeWorkers" onclick="purchaseUpgrade('workers')">Hire More Workers (Cost: <span id="workersCost">50</span> gold)</button>
-    </div>
-    <div class="notifications" id="notifications">
-        <div class="notification"></div>
     </div>
     <script src="script.js"></script>
 </body>
