@@ -175,3 +175,34 @@ body {
 .upgrades button:hover {
     background-color: #45a049; /* Darker green button background on hover */
 }
+
+.notifications {
+    position: absolute;
+    top: 150px;
+    right: 10px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.notification {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    animation: fadeOutAnimation 2s forwards;
+}
+
+@keyframes fadeOutAnimation {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* Unlock new resource deposits */
+.silver, .diamond, .coal {
+    display: none;
+}
+
+.silver.unlocked, .diamond.unlocked, .coal.unlocked {
+    display: block;
+}
