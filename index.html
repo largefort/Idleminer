@@ -25,6 +25,12 @@
             <div class="resource-deposit coal">
                 <div class="glowing-deposit"></div>
             </div>
+            <div class="resource-deposit emerald">
+                <div class="glowing-deposit"></div>
+            </div>
+            <div class="resource-deposit crystal">
+                <div class="glowing-deposit"></div>
+            </div>
             <div class="pickaxe"></div>
             <div class="resource-particles"></div>
         </div>
@@ -35,14 +41,24 @@
             <span>Silver: <span id="silverCount">0</span></span>
             <span>Diamond: <span id="diamondCount">0</span></span>
             <span>Coal: <span id="coalCount">0</span></span>
+            <span>Emerald: <span id="emeraldCount">0</span></span>
+            <span>Crystal: <span id="crystalCount">0</span></span>
         </div>
         <div class="upgrades" id="upgrades">
             <h3>Upgrades</h3>
             <button id="upgradePickaxe" onclick="purchaseUpgrade('pickaxe')">Upgrade Pickaxe (Cost: <span id="pickaxeCost">10</span> gold)</button>
             <button id="upgradeWorkers" onclick="purchaseUpgrade('workers')">Hire More Workers (Cost: <span id="workersCost">50</span> gold)</button>
+            <button id="prestigeButton">Prestige</button>
+            <button id="powerUpButton">Activate Power-up (Cost: 200 gold)</button>
         </div>
         <div class="notifications" id="notifications">
             <div class="notification"></div>
+        </div>
+        <div class="leaderboard" id="leaderboard">
+            <h3>Leaderboard</h3>
+            <ol>
+                <!-- Leaderboard entries will be added dynamically through JavaScript -->
+            </ol>
         </div>
     </div>
     <script src="script.js"></script>
