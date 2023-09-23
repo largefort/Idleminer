@@ -1,66 +1,43 @@
-body {
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    margin: 20px; /* Reduced margin for mobile devices */
-    background-color: #f2f2f2; /* Light gray background color */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
 }
 
-#container {
-    border: 2px solid #ccc;
-    padding: 20px;
-    width: 300px;
-    margin: 0 auto;
-    background-color: #fff; /* White background color */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Improved shadow */
-    border-radius: 12px; /* Rounded corners */
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+#game-container {
+    width: 600px;
+    height: 400px;
+    border: 2px solid #333;
+    margin-bottom: 20px;
+}
+
+#resources-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.resource {
+    padding: 5px;
+    margin: 5px;
+    background-color: #eee;
+    border: 1px solid #ccc;
 }
 
 button {
-    padding: 12px 24px;
+    padding: 10px;
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
-    margin-top: 20px; /* Increased margin-top for mobile devices */
-    border-radius: 8px; /* Rounded corners for buttons */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Improved shadow */
-    transition: background-color 0.3s ease-in-out; /* Smoother background color transition */
-}
-
-button:hover {
-    background-color: #45a049; /* Darker green on hover */
-}
-
-#clickText {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 24px;
-    color: #4CAF50; /* Green text color */
-    font-weight: bold;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease-in-out;
-}
-
-/* Show the clickText when it has the "active" class */
-#clickText.active {
-    opacity: 1;
-}
-
-/* Mobile-friendly styles */
-@media (max-width: 480px) {
-    body {
-        margin: 10px; /* Further reduced margin for smaller mobile devices */
-    }
-    #container {
-        width: 90%; /* Adjusted width to fit smaller screens */
-        padding: 10px; /* Reduced padding for smaller screens */
-    }
-    button {
-        margin-top: 15px; /* Increased margin-top for smaller mobile devices */
-        padding: 10px 20px; /* Adjusted padding for smaller screens */
-        font-size: 18px; /* Adjusted font size for smaller screens */
-    }
+    margin-top: 10px;
 }
