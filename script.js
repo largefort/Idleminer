@@ -15,11 +15,6 @@ const minerRates = {
     coal: 4,
 };
 
-// Function to get a random number between min (inclusive) and max (exclusive)
-function getRandomNumber(min, max) {
-    return Math.random() * (max - min) + min;
-}
-
 // Update the resource displays
 function updateResourceDisplays() {
     document.getElementById('gold').innerText = gold;
@@ -33,13 +28,6 @@ function playClickSound() {
     const clickSound = document.getElementById('clickSound');
     clickSound.currentTime = 0; // Reset the audio to the beginning
     clickSound.play();
-}
-
-// Function to play the hireMiner sound
-function playHireMinerSound() {
-    const hireMinerSound = document.getElementById('hireMinerSound');
-    hireMinerSound.currentTime = 0; // Reset the audio to the beginning
-    hireMinerSound.play();
 }
 
 // Function to save the game data to localStorage
@@ -74,51 +62,15 @@ function loadGame() {
     }
 }
 
-// Function to mine resources when the button is clicked
-function mineResources() {
-    gold += 1 + goldMiners * minerRates.gold;
-    silver += 1 + silverMiners * minerRates.silver;
-    diamond += 1 + diamondMiners * minerRates.diamond;
-    coal += 1 + coalMiners * minerRates.coal;
+// Function to mine resources continuously by miners
+function autoMineResources() {
+    gold += goldMiners * minerRates.gold;
+    silver += silverMiners * minerRates.silver;
+    diamond += diamondMiners * minerRates.diamond;
+    coal += coalMiners * minerRates.coal;
     updateResourceDisplays();
 
-    // Show the click text with the amount of resources gained
-    const clickText = document.getElementById('clickText');
-    const clickAmount = document.getElementById('clickAmount');
-    clickAmount.innerText = 1 + goldMiners * minerRates.gold +
-        silverMiners * minerRates.silver +
-        diamondMiners * minerRates.diamond +
-        coalMiners * minerRates.coal;
-
-    // Get the dimensions of the clickText container and the window
-    const clickTextRect = clickText.getBoundingClientRect();
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-
-    // Calculate random X and Y coordinates for the clickText within the window
-    const minX = 0;
-    const maxX = windowWidth - clickTextRect.width;
-    const minY = 0;
-    const maxY = windowHeight - clickTextRect.height;
-    const randomX = getRandomNumber(minX, maxX);
-    const randomY = getRandomNumber(minY, maxY);
-
-    // Apply the random position to the clickText
-    clickText.style.left = `${randomX}px`;
-    clickText.style.top = `${randomY}px`;
-
-    // Show the click text
-    clickText.classList.add('active');
-
-    // Hide the click text after a short delay
-    setTimeout(() => {
-        clickText.classList.remove('active');
-    }, 1000);
-
-    // Play the click sound
-    playClickSound();
-
-    // Save the game after every click
+    // Save the game data to localStorage after auto-mining
     saveGame();
 }
 
@@ -131,7 +83,7 @@ function hireMiner(resourceType) {
                 goldMiners++;
                 gold -= cost;
                 updateResourceDisplays();
-                playHireMinerSound(); // Play the hireMiner sound
+                playClickSound(); // Play the click sound when hiring a miner
             }
             break;
         case 'silver':
@@ -139,7 +91,7 @@ function hireMiner(resourceType) {
                 silverMiners++;
                 silver -= cost;
                 updateResourceDisplays();
-                playHireMinerSound(); // Play the hireMiner sound
+                playClickSound(); // Play the click sound when hiring a miner
             }
             break;
         case 'diamond':
@@ -147,7 +99,7 @@ function hireMiner(resourceType) {
                 diamondMiners++;
                 diamond -= cost;
                 updateResourceDisplays();
-                playHireMinerSound(); // Play the hireMiner sound
+                playClickSound(); // Play the click sound when hiring a miner
             }
             break;
         case 'coal':
@@ -155,29 +107,15 @@ function hireMiner(resourceType) {
                 coalMiners++;
                 coal -= cost;
                 updateResourceDisplays();
-                playHireMinerSound(); // Play the hireMiner sound
+                playClickSound(); // Play the click sound when hiring a miner
             }
             break;
         default:
             break;
     }
 
-    // Save the game after hiring a miner
+    // Save the game data to localStorage after hiring a miner
     saveGame();
-}
-
-// Function to automatically mine resources
-function autoMineResources() {
-    gold += goldMiners * minerRates.gold;
-    silver += silverMiners * minerRates.silver;
-    diamond += diamondMiners * minerRates.diamond;
-    coal += coalMiners * minerRates.coal;
-    updateResourceDisplays();
-}
-
-// Start the auto-mining process
-function startAutoMining() {
-    setInterval(autoMineResources, 1000); // Adjust the interval as needed (1000ms = 1 second)
 }
 
 // Start the game
@@ -186,7 +124,7 @@ function startGame() {
     loadGame();
 
     // Attach the mineResources function to the button click event
-    document.getElementById('mineButton').addEventListener('click', mineResources);
+    document.getElementById('mineButton').addEventListener('click', autoMineResources);
 
     // Attach the hireMiner function to each hire button
     document.getElementById('hireGoldMiner').addEventListener('click', () => hireMiner('gold'));
@@ -194,8 +132,8 @@ function startGame() {
     document.getElementById('hireDiamondMiner').addEventListener('click', () => hireMiner('diamond'));
     document.getElementById('hireCoalMiner').addEventListener('click', () => hireMiner('coal'));
 
-    // Start the auto-mining process
-    startAutoMining();
+    // Start auto-mining by miners
+    setInterval(autoMineResources, 1000); // Auto-mine every 1 second
 }
 
 // Run the game
